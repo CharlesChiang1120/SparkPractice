@@ -6,8 +6,6 @@ import org.apache.spark.{SparkConf, SparkContext}
 
 object Spark03_WordCount {
   def main(args: Array[String]): Unit = {
-    // Log
-    Logger.getLogger("org").setLevel(Level.WARN)
 
     // Application
     // Spark 框架

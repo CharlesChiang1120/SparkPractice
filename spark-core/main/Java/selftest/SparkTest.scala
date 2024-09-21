@@ -1,7 +1,10 @@
+package selftest
+
+import org.apache.log4j.{Level, Logger}
+import org.apache.spark.sql.{DataFrame, SparkSession}
+
 import java.awt.Desktop
 import java.net.URI
-import org.apache.spark.sql.{SparkSession, DataFrame}
-import org.apache.log4j.{Level, Logger}
 
 object SparkSQLExample {
   def main(args: Array[String]): Unit = {
