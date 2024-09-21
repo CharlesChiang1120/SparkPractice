@@ -16,7 +16,7 @@ object Spark01_WordCount {
 
     // 1. 讀取文件，獲取一行一行的數據
     //    hello world
-    val lines: RDD[String] = sc.textFile(path = "datas")
+    val lines: RDD[String] = sc.textFile(path = "data")
 
     // 2. 將一行數據進行拆分，形成一個一個的單詞(分詞)
     //    扁平化: 將整體拆分成個體的操作

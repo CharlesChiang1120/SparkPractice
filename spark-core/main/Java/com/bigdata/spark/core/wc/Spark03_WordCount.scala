@@ -1,11 +1,10 @@
 package com.bigdata.spark.core.wc
 
+import org.apache.log4j.{Level, Logger}
 import org.apache.spark.rdd.RDD
 import org.apache.spark.{SparkConf, SparkContext}
-import org.apache.log4j.{Level, Logger}
-import org.apache.spark.sql.catalyst.dsl.expressions.intToLiteral
 
-object Spark02_WordCount {
+object Spark03_WordCount {
   def main(args: Array[String]): Unit = {
     // Log
     Logger.getLogger("org").setLevel(Level.WARN)
@@ -27,20 +26,11 @@ object Spark02_WordCount {
       word => (word, 1)
     )
 
-    val wordGroup: RDD[(String, Iterable[(String, Int)])] = wordToOne.groupBy(
-      t => t._1
-    )
+    // Spark 框架提供了更多的功能，可以將分組和聚合使用一個方法實現
+    // reduceByKey: 相同的 Key 的數據，可以對 value 進行 reduce 聚合
+    val wordToCount = wordToOne.reduceByKey(_ + _)
 
-    val wordToCount: RDD[(String, Int)] = wordGroup.map {
-      case (word, list) =>
-            list.reduce(
-                  (t1, t2) => {
-                    (t1._1, t1._2 + t2._2)
-                  }
-            )
-      }
-
-    val array: Array[(String, Int)] = wordToCount.collect()
+    val array = wordToCount.collect()
     array.foreach(println)
 
     // TODO 關閉連接
